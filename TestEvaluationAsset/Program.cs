@@ -47,7 +47,14 @@ namespace TestEvaluationAsset
             am.Bridge = new Bridge();
 
             EvaluationAsset ea = new EvaluationAsset();
-            ea.performAllTests();
+            try
+            {
+                ea.performAllTests();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             Console.WriteLine("Press enter to exit...");
             Console.ReadLine();
@@ -136,6 +143,37 @@ namespace TestEvaluationAsset
                     string dm = reader.ReadToEnd();
 
                     response.Success(url, (int)webResponse.StatusCode, responseHeader, dm);
+                }
+                catch (Exception e)
+                {
+                    response.Error(url, e.Message);
+                }
+            }
+            else if(string.Equals(method, "post", StringComparison.CurrentCultureIgnoreCase))
+            { //http://stackoverflow.com/questions/4015324/http-request-with-post
+                try
+                {
+                    var request = (HttpWebRequest)WebRequest.Create("http://css-kti.tugraz.at:8080/equalia/rest/xxxx");
+                    var data = Encoding.ASCII.GetBytes(body);
+
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentLength = data.Length;
+
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+
+                    var responsePost = (HttpWebResponse)request.GetResponse();
+
+                    var responseString = new StreamReader(responsePost.GetResponseStream()).ReadToEnd();
+
+                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
+                    foreach (string key in responsePost.Headers.AllKeys)
+                        responseHeader.Add(key, responsePost.Headers[key]);
+
+                    response.Success(url, (int)responsePost.StatusCode, responseHeader, responseString);
                 }
                 catch (Exception e)
                 {

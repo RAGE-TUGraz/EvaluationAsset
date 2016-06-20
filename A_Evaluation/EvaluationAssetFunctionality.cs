@@ -25,6 +25,8 @@
 
   Created by: Matthias Maurer, TUGraz <mmaurer@tugraz.at>
 */
+using AssetManagerPackage;
+using AssetPackage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,228 @@ using System.Text;
 
 namespace EvaluationAssetNameSpace
 {
-    class EvaluationAssetFunctionality
+    internal class EvaluationAssetHandler
     {
+
+        #region Fields
+
+        /// <summary>
+        /// Instance of the EvaluationAsset
+        /// </summary>
+        internal EvaluationAsset evaluationAsset = null;
+
+        /// <summary>
+        /// Instance of the class EvaluationAssetHandler - Singelton pattern
+        /// </summary>
+        private static EvaluationAssetHandler instance;
+
+        /// <summary>
+        /// String array containing all valid game events
+        /// </summary>
+        private string[] validGameEvents = { "gameusage", "userprofile", "gameactivity", "gamification", "gameflow", "support", "assetactivity" };
+
+        #endregion Fields
+            #region Constructors
+
+            /// <summary>
+            /// private EvaluationAssetHandler-ctor for Singelton-pattern 
+            /// </summary>
+        private EvaluationAssetHandler() { }
+
+        #endregion Constructors
+        #region Properties
+
+        /// <summary>
+        /// Getter for Instance of the EvaluationAssetHandler - Singelton pattern
+        /// </summary>
+        public static EvaluationAssetHandler Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new EvaluationAssetHandler();
+                }
+                return instance;
+            }
+        }
+
+        #endregion Properties
+        #region Methods
+
+        /// <summary>
+        /// Method returning an instance of the EvaluationAssetHandler.
+        /// </summary>
+        /// <returns> Instance of the EvaluationAssetHandler </returns>
+        internal EvaluationAsset getEA()
+        {
+            if (evaluationAsset == null)
+                evaluationAsset = (EvaluationAsset)AssetManager.Instance.findAssetByClass("EvaluationAsset");
+            return (evaluationAsset);
+        }
+
+        /// <summary>
+        /// Method for sending data to the evaluation server
+        /// </summary>
+        /// <param name="gameId"> Game identifier </param>
+        /// <param name="playerId">Player Identifier </param>
+        /// <param name="gameEvent"> Type of event </param>
+        /// <param name="parameter"> Event information </param>
+        internal void sensorData(String gameId, String playerId, String gameEvent, String parameter)
+        {
+            if (!isReceivedDataValid(gameId, playerId, gameEvent, parameter))
+            {
+                loggingEA("Received data not valid, input ignored!");
+                return;
+            }
+            else
+                loggingEA("Reiceveid sensor data ("+gameId+"/"+playerId+"/"+gameEvent+"/"+parameter+").");
+
+            String xmlString = buildXMLString(gameId, playerId, gameEvent, parameter);
+            loggingEA("Created xml string: \"" +xmlString+"\"." );
+
+            postData(xmlString);
+        }
+
+        /// <summary>
+        /// Method for converting input data into a xml string for the evaluation service
+        /// </summary>
+        /// <param name="gameId"> Game identifier </param>
+        /// <param name="playerId">Player Identifier </param>
+        /// <param name="gameEvent"> Type of event </param>
+        /// <param name="parameter"> Event information </param>
+        /// <returns> A XML string representation of the data </returns>
+        internal String buildXMLString(String gameId, String playerId, String gameEvent, String parameter)
+        {
+            String xml = "<sensordata>";
+
+            String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm");
+
+            xml += "<context project = \"rage\" application = \""+gameId+ "\" date = \""+dateTime+"\"/>";
+            xml += "<user id = \""+playerId+"\" group = \"\" ref= \"\"/>";
+            xml += "<predicate tag = \""+gameEvent+"\"/>";
+
+            String[] parameterPairs = parameter.Split('&');
+
+            xml += "<parameter ";
+            foreach(String parameterPair in parameterPairs)
+            {
+                String[] currentParameterPair = parameterPair.Split('=');
+                xml += currentParameterPair[0] + "=\""+ currentParameterPair[1] + "\" ";
+            }
+            xml += "/>";
+
+            xml += "</sensordata>";
+            return (xml);
+        }
+
+        /// <summary>
+        /// Method for performing POSR request for sending evaluation data.
+        /// </summary>
+        /// <param name="body"> data to be send to the evaluation service. </param>
+        internal void postData(String body)
+        {
+
+            IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
+            if (iwr != null)
+            {
+                loggingEA("performing POST request with evaluation data.");
+                Uri uri = new Uri(getEA().getEASettings().PostUrl);
+                Dictionary<string, string> headers = new Dictionary<string, string>();
+                //headers.Add("user", playerId);
+                WebServiceResponse wsr = new WebServiceResponse();
+                iwr.WebServiceRequest("get", uri, headers, body, wsr);
+            }
+            else
+            {
+                loggingEA("IWebServiceRequest bridge absent for performing POST request for sending evaluation data.", Severity.Error);
+                throw new Exception("EXCEPTION: IWebServiceRequest bridge absent for performing POST request for sending evaluation data.");
+            }
+        }
+
+        /// <summary>
+        /// Method for checking input data format
+        /// </summary>
+        /// <param name="gameId"> Game identifier </param>
+        /// <param name="playerId">Player Identifier </param>
+        /// <param name="gameEvent"> Type of event </param>
+        /// <param name="parameter"> Event information </param>
+        /// <returns> True, if the received data is valid, false otherwise </returns>
+        internal Boolean isReceivedDataValid(String gameId, String playerId, String gameEvent, String parameter)
+        {
+            if(validGameEvents.Contains(gameEvent))
+                return true;
+
+            return (false);
+        }
+
+        #endregion Methods
+        #region Testmethods
+
+        /// <summary>
+        /// Method for logging (Diagnostics).
+        /// </summary>
+        /// 
+        /// <param name="msg"> Message to be logged. </param>
+        internal void loggingEA(String msg, Severity severity = Severity.Information)
+        {
+            getEA().Log(severity, "[EA]: " + msg);
+        }
+
+        /// <summary>
+        /// Method calling all Tests of this Class.
+        /// </summary>
+        internal void performAllTests()
+        {
+            loggingEA("****************************************************************");
+            loggingEA("Calling all tests (Evaluation Asset):");
+            performTest1();
+            loggingEA("Tests Evaluation Asset - done!");
+            loggingEA("****************************************************************");
+        }
+
+        /// <summary>
+        /// Test number one - sendig data to the asset
+        /// </summary>
+        internal void performTest1()
+        {
+            loggingEA("Calling test 1 - Evaluation Asset");
+            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat");
+            loggingEA("Tests Evaluation Asset - test 1 - done!");
+        }
+
+
+        #endregion Testmethods
     }
+
+    /// <summary>
+    /// Implementation of the WebServiceResponse-Interface for handling web requests.
+    /// </summary>
+    public class WebServiceResponse : IWebServiceResponse
+    {
+        /// <summary>
+        /// Describes behaviour in case the web request failed.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="msg"></param>
+        public void Error(string url, string msg)
+        {
+            EvaluationAssetHandler.Instance.loggingEA("Web Request for sending evaluation data to " + url + " failed! " + msg, Severity.Error);
+            throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + url + " failed! " + msg);
+        }
+
+        /// <summary>
+        /// Describes behaviour in case the web requests succeeds
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="code"></param>
+        /// <param name="headers"></param>
+        /// <param name="body"></param>
+        public void Success(string url, int code, Dictionary<string, string> headers, string body)
+        {
+            EvaluationAssetHandler.Instance.loggingEA("WebClient request successful!");
+            //EvaluationAssetHandler.Instance.loggingEA(DomainModelHandler.Instance.getDMFromXmlString(body));
+        }
+    }
+
 }

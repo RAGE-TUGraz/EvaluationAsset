@@ -48,9 +48,7 @@ namespace EvaluationAssetNameSpace
             : base()
         {
             // Set Default values here.
-            TestProperty = "Hello Default World";
-            TestList = new String[] { "Red", "Green", "Blue" };
-            TestPrivate = true;
+            PostUrl = "http://css-kti.tugraz.at:8080/equalia/rest/xxxx";
         }
 
         #endregion Constructors
@@ -58,61 +56,20 @@ namespace EvaluationAssetNameSpace
         #region Properties
 
         /// <summary>
-        /// Gets or sets the test property.
+        /// Gets or sets the Url for the post request.
         /// </summary>
         ///
         /// <value>
-        /// The test property.
+        /// The Url property for the post request.
         /// </value>
         [XmlElement()]
-        public String TestProperty
+        public String PostUrl
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Gets the string[].
-        /// </summary>
-        ///
-        /// <value>
-        /// .
-        /// </value>
-        [XmlArray()]
-        [XmlArrayItem("ListItem")]
-        public String[] TestList
-        {
-            get;
-            set;
-        }
 
-        /// <summary>
-        /// Gets a value indicating whether the test read only.
-        /// </summary>
-        ///
-        /// <value>
-        /// true if test read only, false if not.
-        /// </value>
-        public Boolean TestReadOnly
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the test private.
-        /// </summary>
-        ///
-        /// <value>
-        /// true if test private only, false if not.
-        /// </value>
-        public Boolean TestPrivate
-        {
-            get;
-            private set;
-        }
 
         #endregion Properties
     }

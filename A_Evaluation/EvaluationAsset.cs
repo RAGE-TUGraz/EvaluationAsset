@@ -58,6 +58,13 @@ namespace EvaluationAssetNameSpace
             //! Create Settings and let it's BaseSettings class assign Defaultvalues where it can.
             // 
             settings = new EvaluationAssetSettings();
+
+            //preventing multiple asset creation
+            if (AssetManager.Instance.findAssetsByClass(this.Class).Count > 1)
+            {
+                this.Log(Severity.Error, "There is only one instance of the EvaluationAsset permitted!");
+                throw new Exception("EXCEPTION: There is only one instance of the EvaluationAsset permitted!");
+            }
         }
 
         #endregion Constructors
@@ -93,9 +100,34 @@ namespace EvaluationAssetNameSpace
 
         #region Methods
 
+        /// <summary>
+        /// Method performing all tests of this asset
+        /// </summary>
         public void performAllTests()
         {
+            EvaluationAssetHandler.Instance.performAllTests();
+        }
 
+        /// <summary>
+        /// Method for sending data to the evaluation server
+        /// </summary>
+        /// <param name="gameId"> Game identifier </param>
+        /// <param name="playerId">Player Identifier </param>
+        /// <param name="gameEvent"> Type of event </param>
+        /// <param name="parameter"> Event information </param>
+        public void sensorData(String gameId, String playerId, String gameEvent, String parameter)
+        {
+            EvaluationAssetHandler.Instance.sensorData(gameId, playerId, gameEvent, parameter);
+        }
+
+
+        /// <summary>
+        /// Method returning the Asset settings.
+        /// </summary>
+        /// <returns> Settings of the Asset. </returns>
+        internal EvaluationAssetSettings getEASettings()
+        {
+            return this.settings;
         }
 
         #endregion Methods
