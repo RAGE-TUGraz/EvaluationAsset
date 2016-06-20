@@ -1,0 +1,10 @@
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\TestEvaluationAsset.exe
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\TestEvaluationAsset.pdb
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.csprojResolveAssemblyReference.cache
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.exe
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.pdb
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\A_Evaluation.dll
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\RageAssetManager.dll
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\A_Evaluation.pdb
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\RageAssetManager.pdb
+c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\RageAssetManager.xml
