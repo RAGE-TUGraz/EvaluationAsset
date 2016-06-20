@@ -49,13 +49,8 @@ namespace EvaluationAssetNameSpace
         /// </summary>
         private static EvaluationAssetHandler instance;
 
-        /// <summary>
-        /// String array containing all valid game events
-        /// </summary>
-        private string[] validGameEvents = { "gameusage", "userprofile", "gameactivity", "gamification", "gameflow", "support", "assetactivity" };
-
         #endregion Fields
-            #region Constructors
+        #region Constructors
 
             /// <summary>
             /// private EvaluationAssetHandler-ctor for Singelton-pattern 
@@ -183,8 +178,43 @@ namespace EvaluationAssetNameSpace
         /// <returns> True, if the received data is valid, false otherwise </returns>
         internal Boolean isReceivedDataValid(String gameId, String playerId, String gameEvent, String parameter)
         {
-            if(validGameEvents.Contains(gameEvent))
-                return true;
+            string[] parameterPairs = parameter.Split('&');
+            List<string> keys = new List<string>();
+
+            foreach(string pair in parameterPairs)
+                keys.Add(pair.Split('=')[0]);
+
+            switch (gameEvent)
+            {
+                case "gameusage":
+                    if (keys.Count == 1 && keys.Contains("event"))
+                        return (true);
+                    break;
+                case "userprofile":
+                    if (keys.Count == 1 && keys.Contains("event"))
+                        return (true);
+                    break;
+                case "gameactivity":
+                    if (keys.Count == 3 && keys.Contains("event") && keys.Contains("goalorientation") && keys.Contains("tool"))
+                        return (true);
+                    break;
+                case "gamification":
+                    if (keys.Count == 1 && keys.Contains("event"))
+                        return (true);
+                    break;
+                case "gameflow":
+                    if (keys.Count == 3 && keys.Contains("type") && keys.Contains("id") && keys.Contains("completed"))
+                        return (true);
+                    break;
+                case "support":
+                    if (keys.Count == 1 && keys.Contains("event"))
+                        return (true);
+                    break;
+                case "assetactivity":
+                    if (keys.Count == 2 && keys.Contains("asset") && keys.Contains("done"))
+                        return (true);
+                    break;
+            }
 
             return (false);
         }
@@ -220,7 +250,7 @@ namespace EvaluationAssetNameSpace
         internal void performTest1()
         {
             loggingEA("Calling test 1 - Evaluation Asset");
-            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat");
+            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
             loggingEA("Tests Evaluation Asset - test 1 - done!");
         }
 
