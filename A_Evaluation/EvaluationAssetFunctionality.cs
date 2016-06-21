@@ -100,7 +100,7 @@ namespace EvaluationAssetNameSpace
         {
             if (!isReceivedDataValid(gameId, playerId, gameEvent, parameter))
             {
-                loggingEA("Received data not valid, input ignored!");
+                loggingEA("Received data(" + gameId + "/" + playerId + "/" + gameEvent + "/" + parameter + ") not valid, input ignored!");
                 return;
             }
             else
@@ -250,6 +250,7 @@ namespace EvaluationAssetNameSpace
         internal void performTest1()
         {
             loggingEA("Calling test 1 - Evaluation Asset");
+            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat)");
             getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
             loggingEA("Tests Evaluation Asset - test 1 - done!");
         }

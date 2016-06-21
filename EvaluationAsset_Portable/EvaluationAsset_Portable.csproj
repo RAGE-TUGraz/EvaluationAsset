@@ -35,8 +35,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\AppData\Local\Temp\gzqntzmb.urw\MyFirstAsset\Properties\AssemblyInfo.cs">
+    <Compile Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\EvaluationAsset.cs">
+      <Link>EvaluationAsset.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\EvaluationAssetSettings.cs">
+      <Link>EvaluationAssetSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\EvaluationAssetFunctionality.cs">
+      <Link>EvaluationAssetFunctionality.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
