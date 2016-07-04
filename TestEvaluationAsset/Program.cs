@@ -153,11 +153,11 @@ namespace TestEvaluationAsset
             { //http://stackoverflow.com/questions/4015324/http-request-with-post
                 try
                 {
-                    var request = (HttpWebRequest)WebRequest.Create("http://css-kti.tugraz.at:8080/equalia/rest/xxxx");
+                    var request = (HttpWebRequest)WebRequest.Create(uri);
                     var data = Encoding.ASCII.GetBytes(body);
 
                     request.Method = "POST";
-                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentType = "text/plain";
                     request.ContentLength = data.Length;
 
                     using (var stream = request.GetRequestStream())

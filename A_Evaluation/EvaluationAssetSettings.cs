@@ -48,7 +48,7 @@ namespace EvaluationAssetNameSpace
             : base()
         {
             // Set Default values here.
-            PostUrl = "http://css-kti.tugraz.at:8080/equalia/rest/xxxx";
+            PostUrl = "http://css-kti.tugraz.at:8080/equalia/rest/submitsensorrawdata";
             GameId = "default game id";
             GameVersion = "default Version";
             PlayerId = "default player id";

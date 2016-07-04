@@ -134,7 +134,7 @@ namespace EvaluationAssetNameSpace
 
             String[] parameterPairs = parameter.Split('&');
 
-            xml += "<valuedata ";
+            xml += "<parameter ";
             foreach(String parameterPair in parameterPairs)
             {
                 String[] currentParameterPair = parameterPair.Split('=');
@@ -161,7 +161,7 @@ namespace EvaluationAssetNameSpace
                 Dictionary<string, string> headers = new Dictionary<string, string>();
                 //headers.Add("user", playerId);
                 WebServiceResponse wsr = new WebServiceResponse();
-                iwr.WebServiceRequest("get", uri, headers, body, wsr);
+                iwr.WebServiceRequest("post", uri, headers, body, wsr);
             }
             else
             {
