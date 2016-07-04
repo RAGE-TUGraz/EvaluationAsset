@@ -47,6 +47,7 @@ namespace TestEvaluationAsset
             am.Bridge = new Bridge();
 
             EvaluationAsset ea = new EvaluationAsset();
+
             try
             {
                 ea.performAllTests();

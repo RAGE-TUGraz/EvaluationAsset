@@ -126,7 +126,7 @@ namespace EvaluationAssetNameSpace
         {
             String xml = "<sensordata>";
 
-            String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm");
+            String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
             xml += "<context project = \"rage\" application = \""+gameId+ "\" version=\""+gameversion+"\" date = \""+dateTime+"\"/>";
             xml += "<user id = \""+playerId+"\" group = \"\" ref= \"\"/>";
