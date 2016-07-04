@@ -111,13 +111,11 @@ namespace EvaluationAssetNameSpace
         /// <summary>
         /// Method for sending data to the evaluation server
         /// </summary>
-        /// <param name="gameId"> Game identifier </param>
-        /// <param name="playerId">Player Identifier </param>
         /// <param name="gameEvent"> Type of event </param>
         /// <param name="parameter"> Event information </param>
-        public void sensorData(String gameId, String playerId, String gameEvent, String parameter)
+        public void sensorData(String gameEvent, String parameter)
         {
-            EvaluationAssetHandler.Instance.sensorData(gameId, playerId, gameEvent, parameter);
+            EvaluationAssetHandler.Instance.sensorData(this.settings.GameId, this.settings.GameVersion, this.settings.PlayerId , gameEvent, parameter);
         }
 
 

@@ -49,6 +49,9 @@ namespace EvaluationAssetNameSpace
         {
             // Set Default values here.
             PostUrl = "http://css-kti.tugraz.at:8080/equalia/rest/xxxx";
+            GameId = "default game id";
+            GameVersion = "default Version";
+            PlayerId = "default player id";
         }
 
         #endregion Constructors
@@ -64,6 +67,48 @@ namespace EvaluationAssetNameSpace
         /// </value>
         [XmlElement()]
         public String PostUrl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Game Id for the xml creation.
+        /// </summary>
+        ///
+        /// <value>
+        /// The Game Id for the xml creation.
+        /// </value>
+        [XmlElement()]
+        public String GameId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Game Version for the xml creation.
+        /// </summary>
+        ///
+        /// <value>
+        /// The Game Version for the xml creation.
+        /// </value>
+        [XmlElement()]
+        public String GameVersion
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Player Id for the xml creation.
+        /// </summary>
+        ///
+        /// <value>
+        /// The Player Id for the xml creation.
+        /// </value>
+        [XmlElement()]
+        public String PlayerId
         {
             get;
             set;

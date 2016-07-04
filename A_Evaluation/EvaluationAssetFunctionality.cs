@@ -96,7 +96,8 @@ namespace EvaluationAssetNameSpace
         /// <param name="playerId">Player Identifier </param>
         /// <param name="gameEvent"> Type of event </param>
         /// <param name="parameter"> Event information </param>
-        internal void sensorData(String gameId, String playerId, String gameEvent, String parameter)
+        /// <param name="gameversion"> version of the game </param>
+        internal void sensorData(String gameId, String gameversion, String playerId, String gameEvent, String parameter)
         {
             if (!isReceivedDataValid(gameId, playerId, gameEvent, parameter))
             {
@@ -106,7 +107,7 @@ namespace EvaluationAssetNameSpace
             else
                 loggingEA("Reiceveid sensor data ("+gameId+"/"+playerId+"/"+gameEvent+"/"+parameter+").");
 
-            String xmlString = buildXMLString(gameId, playerId, gameEvent, parameter);
+            String xmlString = buildXMLString(gameId, gameversion, playerId, gameEvent, parameter);
             loggingEA("Created xml string: \"" +xmlString+"\"." );
 
             postData(xmlString);
@@ -119,20 +120,21 @@ namespace EvaluationAssetNameSpace
         /// <param name="playerId">Player Identifier </param>
         /// <param name="gameEvent"> Type of event </param>
         /// <param name="parameter"> Event information </param>
+        /// <param name="gameversion"> version of the game </param>
         /// <returns> A XML string representation of the data </returns>
-        internal String buildXMLString(String gameId, String playerId, String gameEvent, String parameter)
+        internal String buildXMLString(String gameId, String gameversion, String playerId, String gameEvent, String parameter)
         {
             String xml = "<sensordata>";
 
             String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm");
 
-            xml += "<context project = \"rage\" application = \""+gameId+ "\" date = \""+dateTime+"\"/>";
+            xml += "<context project = \"rage\" application = \""+gameId+ "\" version=\""+gameversion+"\" date = \""+dateTime+"\"/>";
             xml += "<user id = \""+playerId+"\" group = \"\" ref= \"\"/>";
             xml += "<predicate tag = \""+gameEvent+"\"/>";
 
             String[] parameterPairs = parameter.Split('&');
 
-            xml += "<parameter ";
+            xml += "<valuedata ";
             foreach(String parameterPair in parameterPairs)
             {
                 String[] currentParameterPair = parameterPair.Split('=');
@@ -250,8 +252,16 @@ namespace EvaluationAssetNameSpace
         internal void performTest1()
         {
             loggingEA("Calling test 1 - Evaluation Asset");
-            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat)");
-            getEA().sensorData("watercooler", "player123", "gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
+
+            EvaluationAssetSettings  eas = new EvaluationAssetSettings();
+            eas.GameId = "watercooler";
+            eas.GameVersion = "2";
+            eas.PlayerId = "player123";
+
+            this.getEA().Settings = eas;
+
+            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat)");
+            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
             loggingEA("Tests Evaluation Asset - test 1 - done!");
         }
 
