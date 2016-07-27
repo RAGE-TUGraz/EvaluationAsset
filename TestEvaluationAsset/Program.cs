@@ -124,67 +124,9 @@ namespace TestEvaluationAsset
         #endregion ILog
         #region IWebServiceRequest
 
-        public void WebServiceRequest(string method, Uri uri, Dictionary<string, string> headers, string body, IWebServiceResponse response)
+        public void WebServiceRequest(RequestSetttings requestSettings, out RequestResponse requestResponse)
         {
-            string url = uri.AbsoluteUri;
-
-            if (string.Equals(method, "get", StringComparison.CurrentCultureIgnoreCase))
-            {
-                try
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                    HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse();
-                    Stream resStream = webResponse.GetResponseStream();
-
-                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
-                    foreach (string key in webResponse.Headers.AllKeys)
-                        responseHeader.Add(key, webResponse.Headers[key]);
-
-                    StreamReader reader = new StreamReader(resStream);
-                    string dm = reader.ReadToEnd();
-
-                    response.Success(url, (int)webResponse.StatusCode, responseHeader, dm);
-                }
-                catch (Exception e)
-                {
-                    response.Error(url, e.Message);
-                }
-            }
-            else if(string.Equals(method, "post", StringComparison.CurrentCultureIgnoreCase))
-            { //http://stackoverflow.com/questions/4015324/http-request-with-post
-                try
-                {
-                    var request = (HttpWebRequest)WebRequest.Create(uri);
-                    var data = Encoding.ASCII.GetBytes(body);
-
-                    request.Method = "POST";
-                    request.ContentType = "text/plain";
-                    request.ContentLength = data.Length;
-
-                    using (var stream = request.GetRequestStream())
-                    {
-                        stream.Write(data, 0, data.Length);
-                    }
-
-                    var responsePost = (HttpWebResponse)request.GetResponse();
-
-                    var responseString = new StreamReader(responsePost.GetResponseStream()).ReadToEnd();
-
-                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
-                    foreach (string key in responsePost.Headers.AllKeys)
-                        responseHeader.Add(key, responsePost.Headers[key]);
-
-                    response.Success(url, (int)responsePost.StatusCode, responseHeader, responseString);
-                }
-                catch (Exception e)
-                {
-                    response.Error(url, e.Message);
-                }
-            }
-            else
-            {
-                response.Error(url, "Requested method " + method + " not implemented!");
-            }
+            throw new NotImplementedException();
         }
 
         #endregion IWebServiceRequest
