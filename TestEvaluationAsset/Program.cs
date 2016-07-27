@@ -99,6 +99,7 @@ namespace TestEvaluationAsset
             catch (Exception e)
             {
                 Console.WriteLine("Error by loading the DM!");
+                Console.WriteLine(e.Message);
             }
 
             return (null);
