@@ -101,14 +101,6 @@ namespace EvaluationAssetNameSpace
         #region Methods
 
         /// <summary>
-        /// Method performing all tests of this asset
-        /// </summary>
-        public void performAllTests()
-        {
-            EvaluationAssetHandler.Instance.performAllTests();
-        }
-
-        /// <summary>
         /// Method for sending data to the evaluation server
         /// </summary>
         /// <param name="gameEvent"> Type of event </param>

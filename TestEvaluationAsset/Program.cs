@@ -49,20 +49,76 @@ namespace TestEvaluationAsset
 
             EvaluationAsset ea = new EvaluationAsset();
 
-            try
-            {
-                ea.performAllTests();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+
+            TestEvaluationAsset tea = new TestEvaluationAsset();
+            tea.performAllTests();
 
             Console.WriteLine("Press enter to exit...");
             Console.ReadLine();
 
 
         }
+    }
+
+    class TestEvaluationAsset
+    {
+        #region HelperMethods
+
+        /// <summary>
+        /// Logging functionality for the Tests
+        /// </summary>
+        /// <param name="msg"> Message to be logged </param>
+        public void log(String msg, Severity severity = Severity.Information)
+        {
+            ILog logger = (ILog)AssetManager.Instance.Bridge;
+            logger.Log(severity, "[EA Test]" + msg);
+        }
+
+        /// <summary>
+        /// Method returning the Asset
+        /// </summary>
+        /// <returns> The Asset</returns>
+        public EvaluationAsset getEA()
+        {
+            return (EvaluationAsset)AssetManager.Instance.findAssetByClass("EvaluationAsset");
+        }
+
+
+        #endregion HelperMethods
+        #region TestMethods
+
+        /// <summary>
+        /// Method calling all Tests of this Class.
+        /// </summary>
+        internal void performAllTests()
+        {
+            log("****************************************************************");
+            log("Calling all tests (Evaluation Asset):");
+            performTest1();
+            log("Tests Evaluation Asset - done!");
+            log("****************************************************************");
+        }
+
+        /// <summary>
+        /// Test number one - sendig data to the asset
+        /// </summary>
+        internal void performTest1()
+        {
+            log("Calling test 1 - Evaluation Asset");
+
+            EvaluationAssetSettings eas = new EvaluationAssetSettings();
+            eas.GameId = "watercooler";
+            eas.GameVersion = "2";
+            eas.PlayerId = "player123";
+
+            this.getEA().Settings = eas;
+
+            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat)");
+            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
+            log("Tests Evaluation Asset - test 1 - done!");
+        }
+        
+        #endregion TestMethods
     }
 
     class Bridge : IBridge, /*IVirtualProperties,*/ ILog, IDataStorage, IWebServiceRequest/*, ISerializer*/

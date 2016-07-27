@@ -238,6 +238,7 @@ namespace EvaluationAssetNameSpace
             getEA().Log(severity, "[EA]: " + msg);
         }
 
+        /*
         /// <summary>
         /// Method calling all Tests of this Class.
         /// </summary>
@@ -268,7 +269,7 @@ namespace EvaluationAssetNameSpace
             getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
             loggingEA("Tests Evaluation Asset - test 1 - done!");
         }
-
+        */
 
         #endregion Testmethods
     }
