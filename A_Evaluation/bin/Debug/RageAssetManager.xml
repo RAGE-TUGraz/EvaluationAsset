@@ -142,33 +142,33 @@
         </member>
         <member name="T:AssetManagerPackage.Messages">
             <summary>
-            A pubsubz.
+            A Broadcast Messages class.
             </summary>
         </member>
         <member name="F:AssetManagerPackage.Messages.idGenerator">
             <summary>
-            The sub UID.
+            The subscription ID generator.
             </summary>
         </member>
-        <member name="F:AssetManagerPackage.Messages.topics">
+        <member name="F:AssetManagerPackage.Messages.messages">
             <summary>
             The messages is a dictionary of messages and their subscribers.
             </summary>
         </member>
         <member name="T:AssetManagerPackage.Messages.MessagesEventCallback">
              <summary>
-             Topic event.
+             Interface for broadcast message callback.
              </summary>
             
              <param name="message"> The message id. </param>
-             <param name="args">  A variable-length parameters list containing arguments. </param>
+             <param name="parameters">  A variable-length parameters list containing arguments. </param>
         </member>
         <member name="M:AssetManagerPackage.Messages.define(System.String)">
              <summary>
-             Defines.
+             Define a broadcast message.
              </summary>
             
-             <param name="message"> The topic. </param>
+             <param name="message"> The message. </param>
             
              <returns>
              true if it succeeds, false if it fails.
@@ -180,7 +180,7 @@
              </summary>
             
              <param name="message"> The message to broadcast. </param>
-             <param name="args">     A variable-length parameters list containing
+             <param name="parameters">     A variable-length parameters list containing
                                      arguments. </param>
             
              <returns>
@@ -189,7 +189,7 @@
         </member>
         <member name="M:AssetManagerPackage.Messages.subscribe(System.String,AssetManagerPackage.Messages.MessagesEventCallback)">
              <summary>
-             Subscribe to a broadcast.
+             Subscribe to a broadcast message.
              </summary>
             
              <remarks>
@@ -213,6 +213,133 @@
              <returns>
              true if it succeeds, false if it fails.
              </returns>
+        </member>
+        <member name="T:AssetManagerPackage.RageExtensions">
+            <summary>
+            A rage extensions.
+            </summary>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.Assembly(System.Type)">
+             <summary>
+             A Type extension method that assemblies the given type.
+             </summary>
+            
+             <param name="type"> The type to act on. </param>
+            
+             <returns>
+             An Assembly.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.IsClassFix(System.Type)">
+             <summary>
+             A Type extension method that query if 'type' is class.
+             </summary>
+            
+             <param name="type"> The type to act on. </param>
+            
+             <returns>
+             true if class, false if not.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.IsPrimitiveFix(System.Type)">
+             <summary>
+             A Type extension method that query if 'type' is primitive.
+             </summary>
+            
+             <param name="type"> The type to act on. </param>
+            
+             <returns>
+             true if primitive, false if not.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.IsSerializableFix(System.Type)">
+             <summary>
+             A Type extension method that query if 'type' is serializable.
+             </summary>
+            
+             <param name="type"> The type to act on. </param>
+            
+             <returns>
+             true if serializable, false if not.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.MethodInfoFix(System.Type,System.String)">
+             <summary>
+             A Type extension method that query if 'type' is serializable.
+             </summary>
+            
+             <param name="type"> The type to act on. </param>
+             <param name="name"> The name. </param>
+            
+             <returns>
+             true if serializable, false if not.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.MethodInfoFix(System.Type,System.String,System.Type[])">
+             <summary>
+             A Type extension method that query if 'type' is serializable.
+             </summary>
+            
+             <param name="type">  The type to act on. </param>
+             <param name="name">  The name. </param>
+             <param name="types"> The types. </param>
+            
+             <returns>
+             true if serializable, false if not.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.GetMethodInfo(System.Linq.Expressions.Expression{System.Action})">
+             <summary>
+             Gets method information.
+             </summary>
+            
+             <param name="expression"> The expression. </param>
+            
+             <returns>
+             The method information.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.GetMethodInfo``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+             <summary>
+             Gets method information.
+             </summary>
+            
+             <typeparam name="T"> Generic type parameter. </typeparam>
+             <param name="lex"> The expression. </param>
+            
+             <returns>
+             The method information.
+             </returns>
+        </member>
+        <member name="M:AssetManagerPackage.RageExtensions.GetMethodInfo(System.Linq.Expressions.LambdaExpression)">
+             <summary>
+             Gets method information.
+             </summary>
+            
+             <param name="lex"> The expression. </param>
+            
+             <returns>
+             The method information.
+             </returns>
+        </member>
+        <member name="T:AssetManagerPackage.StringWriterUtf8">
+             <summary>
+             A StringWriter UTF8.
+             </summary>
+            
+             <remarks>
+             Fix-up for XDocument Serialization defaulting to utf-16.
+             </remarks>
+        </member>
+        <member name="P:AssetManagerPackage.StringWriterUtf8.Encoding">
+             <summary>
+             Gets the <see cref="T:System.Text.Encoding" /> in which the output is
+             written.
+             </summary>
+            
+             <value>
+             The Encoding in which the output is written.
+             </value>
         </member>
         <member name="T:AssetManagerPackage.RageVersionInfo">
             <summary>
@@ -303,15 +430,6 @@
              <returns>
              A String.
              </returns>
-        </member>
-        <member name="T:AssetManagerPackage.RageVersionInfo.StringWriterUtf8">
-             <summary>
-             A string writer utf-8.
-             </summary>
-            
-             <remarks>
-             Fix-up for XDocument Serialization defaulting to utf-16.
-             </remarks>
         </member>
         <member name="T:AssetManagerPackage.Dependencies">
             <summary>
@@ -587,15 +705,6 @@
              <returns>
              The interface.
              </returns>
-        </member>
-        <member name="T:AssetPackage.BaseAsset.StringWriterUtf8">
-             <summary>
-             A string writer utf-8.
-             </summary>
-            
-             <remarks>
-             Fix-up for XDocument Serialization defaulting to utf-16.
-             </remarks>
         </member>
         <member name="T:AssetPackage.BaseSettings">
             <summary>
@@ -900,7 +1009,7 @@
             Interface for settings.
             </summary>
         </member>
-        <member name="T:AssetPackage.IWebServiceResponse">
+        <member name="T:AssetPackage.IWebServiceResponseAsync">
              <summary>
              Interface for web service response.
              </summary>
@@ -910,7 +1019,7 @@
              IWebServiceRequest.
              </remarks>
         </member>
-        <member name="M:AssetPackage.IWebServiceResponse.Error(System.String,System.String)">
+        <member name="M:AssetPackage.IWebServiceResponseAsync.Error(System.String,System.String)">
              <summary>
              Called when a WebRequest results in an Error.
              </summary>
@@ -918,7 +1027,7 @@
              <param name="url"> URL of the document. </param>
              <param name="msg"> The error message. </param>
         </member>
-        <member name="M:AssetPackage.IWebServiceResponse.Success(System.String,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+        <member name="M:AssetPackage.IWebServiceResponseAsync.Success(System.String,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
              <summary>
              Called after a Successfull WebRequest (no Exceptions).
              </summary>
@@ -927,6 +1036,108 @@
              <param name="code">    The code. </param>
              <param name="headers"> The headers. </param>
              <param name="body">    The body. </param>
+        </member>
+        <member name="T:AssetPackage.IWebServiceRequestAsync">
+             <summary>
+             Interface for web service request.
+             </summary>
+            
+             <remarks>
+             Implemented on a Bridge.
+             Will be replaced by the code from IWebServiceRequest2 once tested.
+             </remarks>
+        </member>
+        <member name="M:AssetPackage.IWebServiceRequestAsync.WebServiceRequestAsync(System.String,System.Uri,System.Collections.Generic.Dictionary{System.String,System.String},System.String,AssetPackage.IWebServiceResponseAsync)">
+             <summary>
+             Web service request.
+             </summary>
+            
+             <param name="method">      The method. </param>
+             <param name="uri">         URI of the document. </param>
+             <param name="headers">     The headers. </param>
+             <param name="body">        The body. </param>
+             <param name="response">    The response. </param>
+        </member>
+        <member name="T:AssetPackage.RequestSetttings">
+            <summary>
+            Request Settings.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestSetttings.method">
+            <summary>
+            The method.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestSetttings.uri">
+            <summary>
+            URI of the document.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestSetttings.requestHeaders">
+            <summary>
+            The request headers.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestSetttings.body">
+            <summary>
+            The body.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestSetttings.allowedResponsCodes">
+            <summary>
+            The allowed responses.
+            </summary>
+        </member>
+        <member name="M:AssetPackage.RequestSetttings.#ctor">
+            <summary>
+            Initializes a new instance of the AssetPackage.requestParameters
+            class.
+            </summary>
+        </member>
+        <member name="T:AssetPackage.RequestResponse">
+            <summary>
+            Response results.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestResponse.responseCode">
+            <summary>
+            The response code.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestResponse.responsMessage">
+            <summary>
+            Message describing the respons.
+            </summary>
+        </member>
+        <member name="F:AssetPackage.RequestResponse.responseHeaders">
+            <summary>
+            The response headers.
+            </summary>
+        </member>
+        <member name="M:AssetPackage.RequestResponse.#ctor">
+            <summary>
+            Initializes a new instance of the AssetPackage.RequestResponse class.
+            </summary>
+        </member>
+        <member name="M:AssetPackage.RequestResponse.#ctor(AssetPackage.RequestSetttings)">
+             <summary>
+             Initializes a new instance of the AssetPackage.RequestResponse class.
+             </summary>
+            
+             <remarks>
+             The body is not copied as it will contain thee response body instead.
+             </remarks>
+            
+             <param name="settings"> Options for controlling the operation. </param>
+        </member>
+        <member name="P:AssetPackage.RequestResponse.ResultAllowed">
+             <summary>
+             Gets a value indicating whether result is allowed.
+             </summary>
+            
+             <value>
+             true if result allowed, false if not.
+             </value>
         </member>
         <member name="T:AssetPackage.IWebServiceRequest">
              <summary>
@@ -937,16 +1148,17 @@
              Implemented on a Bridge.
              </remarks>
         </member>
-        <member name="M:AssetPackage.IWebServiceRequest.WebServiceRequest(System.String,System.Uri,System.Collections.Generic.Dictionary{System.String,System.String},System.String,AssetPackage.IWebServiceResponse)">
+        <member name="M:AssetPackage.IWebServiceRequest.WebServiceRequest(AssetPackage.RequestSetttings,AssetPackage.RequestResponse@)">
              <summary>
              Web service request.
              </summary>
             
-             <param name="method">      The method. </param>
-             <param name="uri">         URI of the document. </param>
-             <param name="headers">     The headers. </param>
-             <param name="body">        The body. </param>
-             <param name="response">    The response. </param>
+             <returns>
+             A RequestResponse.
+             </returns>
+            
+             <param name="requestSettings">  Options for controlling the operation. </param>
+             <param name="requestResponse"> The request response. </param>
         </member>
     </members>
 </doc>

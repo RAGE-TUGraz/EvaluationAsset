@@ -8,3 +8,5 @@ c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluati
 c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\A_Evaluation.pdb
 c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\RageAssetManager.pdb
 c:\users\mmaurer\documents\visual studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\RageAssetManager.xml
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\Newtonsoft.Json.xml

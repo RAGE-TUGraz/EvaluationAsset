@@ -159,9 +159,13 @@ namespace EvaluationAssetNameSpace
                 loggingEA("performing POST request with evaluation data.");
                 Uri uri = new Uri(getEA().getEASettings().PostUrl);
                 Dictionary<string, string> headers = new Dictionary<string, string>();
-                //headers.Add("user", playerId);
-                WebServiceResponse wsr = new WebServiceResponse();
-                iwr.WebServiceRequest("post", uri, headers, body, wsr);
+                RequestResponse rr = new RequestResponse();
+                RequestSetttings rs = new RequestSetttings();
+                rs.method = "POST";
+                rs.uri = uri;
+                rs.requestHeaders = headers;
+                rs.body = body;
+                iwr.WebServiceRequest(rs, out rr);
             }
             else
             {
@@ -269,6 +273,7 @@ namespace EvaluationAssetNameSpace
         #endregion Testmethods
     }
 
+    /*
     /// <summary>
     /// Implementation of the WebServiceResponse-Interface for handling web requests.
     /// </summary>
@@ -299,4 +304,5 @@ namespace EvaluationAssetNameSpace
         }
     }
 
+    */
 }
