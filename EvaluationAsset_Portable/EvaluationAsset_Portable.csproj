@@ -7,7 +7,7 @@
     <ProjectGuid>{A441FEE9-482A-418E-B046-795B2233B910}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EvaluationAsset_Portable</RootNamespace>
+    <RootNamespace>EvaluationAssetNameSpace</RootNamespace>
     <AssemblyName>EvaluationAsset_Portable</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>

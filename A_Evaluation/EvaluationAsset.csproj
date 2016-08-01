@@ -7,7 +7,7 @@
     <ProjectGuid>{4D1F98C7-6827-4F99-B676-F5C9AF632609}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AssetPackage</RootNamespace>
+    <RootNamespace>EvaluationAssetNameSpace</RootNamespace>
     <AssemblyName>EvaluationAsset</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
