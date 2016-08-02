@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluationAsset_Portable", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEvaluationAsset", "TestEvaluationAsset\TestEvaluationAsset.csproj", "{CE70076C-A795-4EE3-BD40-258BA0D3EE97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestEvaluation", "UnitTestEvaluation\UnitTestEvaluation.csproj", "{FC0D2CDC-1457-4F6C-830A-95C11E8BFAB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE70076C-A795-4EE3-BD40-258BA0D3EE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE70076C-A795-4EE3-BD40-258BA0D3EE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE70076C-A795-4EE3-BD40-258BA0D3EE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0D2CDC-1457-4F6C-830A-95C11E8BFAB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0D2CDC-1457-4F6C-830A-95C11E8BFAB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0D2CDC-1457-4F6C-830A-95C11E8BFAB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0D2CDC-1457-4F6C-830A-95C11E8BFAB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

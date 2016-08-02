@@ -49,12 +49,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\A_Evaluation\Resources\CognitiveInterventionAsset.VersionAndDependencies.xml">
+      <Link>Resources\A_Evaluation.VersionAndDependencies.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="RageAssetManager_Portable">
       <HintPath>..\..\AssetManager\RageAssetManager_Portable\bin\Debug\RageAssetManager_Portable.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

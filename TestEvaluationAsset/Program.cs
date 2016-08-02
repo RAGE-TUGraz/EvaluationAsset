@@ -159,7 +159,8 @@ namespace TestEvaluationAsset
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error by loading the DM! - Maybe you need to change the path: \"" + IDataStoragePath + "\"");
+                Log(Severity.Error, e.Message);
+                Log(Severity.Error,"Error by loading the DM! - Maybe you need to change the path: \"" + IDataStoragePath + "\"");
             }
 
             return (null);
