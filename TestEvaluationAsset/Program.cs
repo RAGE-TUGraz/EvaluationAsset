@@ -37,6 +37,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 
 namespace TestEvaluationAsset
@@ -49,6 +50,7 @@ namespace TestEvaluationAsset
 
             AssetManager am = AssetManager.Instance;
             am.Bridge = new Bridge();
+            
 
             EvaluationAsset ea = new EvaluationAsset();
 
@@ -124,8 +126,11 @@ namespace TestEvaluationAsset
         #endregion TestMethods
     }
 
-    class Bridge : IBridge, ILog, IDataStorage, IWebServiceRequest /*IWebServiceRequestAsync*/
+    public class Bridge : IBridge, ILog, IDataStorage, IWebServiceRequest /*IWebServiceRequestAsync*/
     {
+        string IDataStoragePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); //@"C:\Users\mmaurer\Desktop\rageCsFiles\";
+        
+
         #region IDataStorage
 
         public bool Delete(string fileId)
@@ -135,7 +140,8 @@ namespace TestEvaluationAsset
 
         public bool Exists(string fileId)
         {
-            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
+#warning Change DataStorage-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
+            string filePath = IDataStoragePath + fileId;
             return (File.Exists(filePath));
         }
 
@@ -146,7 +152,8 @@ namespace TestEvaluationAsset
 
         public string Load(string fileId)
         {
-            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
+#warning Change Loading-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
+            string filePath = IDataStoragePath + fileId;
             try
             {   // Open the text file using a stream reader.
                 using (StreamReader sr = new StreamReader(filePath))
@@ -156,9 +163,10 @@ namespace TestEvaluationAsset
                     return (line);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Error by loading the DM!");
+                Log(Severity.Error, e.Message);
+                Log(Severity.Error, "Error by loading the DM! - Maybe you need to change the path: \"" + IDataStoragePath + "\"");
             }
 
             return (null);
@@ -166,7 +174,8 @@ namespace TestEvaluationAsset
 
         public void Save(string fileId, string fileData)
         {
-            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
+#warning Change Saving-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
+            string filePath = IDataStoragePath + fileId;
             using (StreamWriter file = new StreamWriter(filePath))
             {
                 file.Write(fileData);
@@ -174,6 +183,7 @@ namespace TestEvaluationAsset
         }
 
         #endregion IDataStorage
+
         #region ILog
 
         public void Log(Severity severity, string msg)
