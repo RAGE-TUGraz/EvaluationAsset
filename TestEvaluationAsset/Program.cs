@@ -25,6 +25,9 @@
 
   Created by: Matthias Maurer, TUGraz <mmaurer@tugraz.at>
 */
+
+#undef ASYNC
+
 using AssetManagerPackage;
 using AssetPackage;
 using EvaluationAssetNameSpace;
@@ -121,10 +124,8 @@ namespace TestEvaluationAsset
         #endregion TestMethods
     }
 
-    class Bridge : IBridge, /*IVirtualProperties,*/ ILog, IDataStorage, IWebServiceRequest/*, ISerializer*/
+    class Bridge : IBridge, ILog, IDataStorage, IWebServiceRequest /*IWebServiceRequestAsync*/
     {
-        string IDataStoragePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\";
-
         #region IDataStorage
 
         public bool Delete(string fileId)
@@ -134,8 +135,7 @@ namespace TestEvaluationAsset
 
         public bool Exists(string fileId)
         {
-#warning Change DataStorage-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
-            string filePath = IDataStoragePath + fileId;
+            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
             return (File.Exists(filePath));
         }
 
@@ -146,8 +146,7 @@ namespace TestEvaluationAsset
 
         public string Load(string fileId)
         {
-#warning Change Loading-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
-            string filePath = IDataStoragePath + fileId;
+            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
             try
             {   // Open the text file using a stream reader.
                 using (StreamReader sr = new StreamReader(filePath))
@@ -157,10 +156,9 @@ namespace TestEvaluationAsset
                     return (line);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Log(Severity.Error, e.Message);
-                Log(Severity.Error,"Error by loading the DM! - Maybe you need to change the path: \"" + IDataStoragePath + "\"");
+                Console.WriteLine("Error by loading the DM!");
             }
 
             return (null);
@@ -168,8 +166,7 @@ namespace TestEvaluationAsset
 
         public void Save(string fileId, string fileData)
         {
-#warning Change Saving-path if needed in Program.cs, Class Bridge, Variable IDataStoragePath
-            string filePath = IDataStoragePath + fileId;
+            string filePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\" + fileId;
             using (StreamWriter file = new StreamWriter(filePath))
             {
                 file.Write(fileData);
@@ -177,7 +174,6 @@ namespace TestEvaluationAsset
         }
 
         #endregion IDataStorage
-
         #region ILog
 
         public void Log(Severity severity, string msg)
@@ -185,216 +181,157 @@ namespace TestEvaluationAsset
             Console.WriteLine("BRIDGE:  " + msg);
         }
 
-        #endregion ILog    
-        #region IWebServiceRequest
+        #endregion ILog
 
+        #region IWebServiceRequestAsync Members
         /*
-        public void WebServiceRequest(RequestSetttings requestSettings, out RequestResponse requestResponse)
-        {
-            string url = requestSettings.uri.AbsoluteUri;
 
-            if (string.Equals(requestSettings.method, "get", StringComparison.CurrentCultureIgnoreCase))
-            {
-                try
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestSettings.uri);
-                    HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse();
-                    Stream resStream = webResponse.GetResponseStream();
+ #if ASYNC
 
-                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
-                    foreach (string key in webResponse.Headers.AllKeys)
-                        responseHeader.Add(key, webResponse.Headers[key]);
+         /// <summary>
+         /// Web service request.
+         /// </summary>
+         ///
+         /// <param name="method">           The method. </param>
+         /// <param name="uri">              URI of the document. </param>
+         /// <param name="headers">          The headers. </param>
+         /// <param name="body">             The body. </param>
+         /// <param name="notifyOnResponse"> The response. </param>
+         public async void WebServiceRequest(
+             string method,
+             Uri uri,
+             Dictionary<string, string> headers,
+             string body,
+             IWebServiceResponse notifyOnResponse)
+ #else
+         /// <summary>
+         /// Web service request.
+         /// </summary>
+         ///
+         /// <param name="method">           The method. </param>
+         /// <param name="uri">              URI of the document. </param>
+         /// <param name="headers">          The headers. </param>
+         /// <param name="body">             The body. </param>
+         /// <param name="notifyOnResponse"> The response. </param>
+         public void WebServiceRequest(
+             string method,
+             Uri uri,
+             Dictionary<string, string> headers,
+             string body,
+             IWebServiceResponse notifyOnResponse)
+ #endif
+         {
+             try
+             {
+                 //! Create might throw a silent System.IOException on .NET 3.5 (sync).
+                 // 
+                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
 
-                    StreamReader reader = new StreamReader(resStream);
-                    string dm = reader.ReadToEnd();
+                 request.Method = method;
 
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responseCode = (int)webResponse.StatusCode;
-                    requestResponse.responseHeaders = responseHeader;
-                    requestResponse.responsMessage = dm;
-                    requestResponse.body = dm;
-                    requestResponse.uri = requestSettings.uri;
-                }
-                catch (Exception e)
-                {
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responsMessage = e.Message;
-                    requestResponse.uri = requestSettings.uri;
-                    Log(Severity.Error,"Exception: " + e.Message);
-                }
-            }
-            else if (string.Equals(requestSettings.method, "post", StringComparison.CurrentCultureIgnoreCase))
-            { //http://stackoverflow.com/questions/4015324/http-request-with-post
-                try
-                {
-                    var request = (HttpWebRequest)WebRequest.Create(requestSettings.uri);
+                 // TODO Cookies
+                 // 
+                 // Both Accept and Content-Type are not allowed as Headers in a HttpWebRequest.
+                 // They need to be assigned to a matching property.
+                 // 
+                 if (headers.ContainsKey("Accept"))
+                 {
+                     request.Accept = headers["Accept"];
+                 }
 
-                    var data = Encoding.ASCII.GetBytes(requestSettings.body);
+                 if (!String.IsNullOrEmpty(body))
+                 {
+                     byte[] data = Encoding.UTF8.GetBytes(body);
 
-                    request.Method = "POST";
-                    //request.ContentType = "text/plain";
-                    request.ContentType = "application/json";
-                    //request.ContentType = "application/x-www-form-urlencoded";
-                    request.ContentLength = data.Length;
+                     if (headers.ContainsKey("Content-Type"))
+                     {
+                         request.ContentType = headers["Content-Type"];
+                     }
 
-                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                    {
-                        string json = requestSettings.body;
+                     foreach (KeyValuePair<string, string> kvp in headers)
+                     {
+                        if (kvp.Key.Equals("Accept") || kvp.Key.Equals("Content-Type"))
+                        {
+                            continue;
+                        }
+                        request.Headers.Add(kvp.Key, kvp.Value);
+                     }
 
-                        streamWriter.Write(json);
-                        streamWriter.Flush();
-                        streamWriter.Close();
-                    }
-                    
-                    
-                    var responsePost = (HttpWebResponse)request.GetResponse();
-                    
-                    var responseString = new StreamReader(responsePost.GetResponseStream()).ReadToEnd();
-                    
+                     request.ContentLength = data.Length;
 
-                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
-                    foreach (string key in responsePost.Headers.AllKeys)
-                        responseHeader.Add(key, responsePost.Headers[key]);
-                    
+                     // See https://msdn.microsoft.com/en-us/library/system.net.servicepoint.expect100continue(v=vs.110).aspx
+                     // A2 currently does not support this 100-Continue response for POST requets.
+                     request.ServicePoint.Expect100Continue = false;
 
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responseCode = (int)responsePost.StatusCode;
-                    requestResponse.responseHeaders = responseHeader;
-                    requestResponse.responsMessage = responsePost.StatusDescription;
-                    requestResponse.body = responseString;
-                    requestResponse.uri = requestSettings.uri;
-                }
-                catch (Exception e)
-                {
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responsMessage = e.Message;
-                    requestResponse.uri = requestSettings.uri;
-                    Log(Severity.Error, "Exception: " +e.Message);
-                    
-                }
-            }
-            else if (string.Equals(requestSettings.method, "put", StringComparison.CurrentCultureIgnoreCase))
-            {
-                try
-                {
+ #if ASYNC
+                     Stream stream = await request.GetRequestStreamAsync();
+                     await stream.WriteAsync(data, 0, data.Length);
+                     stream.Close();
+ #else
+                     Stream stream = request.GetRequestStream();
+                     stream.Write(data, 0, data.Length);
+                     stream.Close();
+ #endif
+                 }
+                 else
+                 {
+                     foreach (KeyValuePair<string, string> kvp in headers)
+                     {
+                        if (kvp.Key.Equals("Accept") || kvp.Key.Equals("Content-Type"))
+                        {
+                            continue;
+                        }
+                         request.Headers.Add(kvp.Key, kvp.Value);
+                     }
+                 }
 
-                    var request = (HttpWebRequest)WebRequest.Create(requestSettings.uri);
-                    request.ContentType = "text/json";
-                    request.Method = "PUT";
-                    request.ContentLength = Encoding.ASCII.GetBytes(requestSettings.body).Length;
+ #if ASYNC
+                 WebResponse response = await request.GetResponseAsync();
+ #else
+                 WebResponse response = request.GetResponse();
+ #endif
+                 if (notifyOnResponse != null)
+                 {
+                     Dictionary<string, string> responseHeaders = new Dictionary<string, string>();
 
-                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                    {
-                        string json = requestSettings.body;
+                     if (response.Headers.HasKeys())
+                     {
+                         foreach (string key in response.Headers.AllKeys)
+                         {
+                            responseHeaders.Add(key, response.Headers.Get(key));
+                         }
+                     }
 
-                        streamWriter.Write(json);
-                        streamWriter.Flush();
-                        streamWriter.Close();
-                    }
-                    var httpResponse = (HttpWebResponse)request.GetResponse();
-                    var responseString = new StreamReader(httpResponse.GetResponseStream()).ReadToEnd();
+                     int responseCode = (int)(response as HttpWebResponse).StatusCode;
+                     string responseBody = String.Empty;
 
+                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                     {
+ #if ASYNC
+                         responseBody = await reader.ReadToEndAsync();
+ #else
+                         responseBody = reader.ReadToEnd();
+ #endif
+                     }
 
-                    Dictionary<string, string> responseHeader = new Dictionary<string, string>();
-                    foreach (string key in httpResponse.Headers.AllKeys)
-                        responseHeader.Add(key, httpResponse.Headers[key]);
+                     notifyOnResponse.Success(uri.ToString(), responseCode, responseHeaders, responseBody);
+                 }
+             }
+             catch (Exception e)
+             {
+                 if (notifyOnResponse != null)
+                 {
+                     notifyOnResponse.Error(uri.ToString(), e.Message);
+                 }
+                 else
+                 {
+                     Log(Severity.Error, String.Format("{0} - {1}", e.GetType().Name, e.Message));
+                 }
+             }
+         }
+ */
+        #endregion IWebServiceRequestAsync Members
 
-
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responseCode = (int)httpResponse.StatusCode;
-                    requestResponse.responseHeaders = responseHeader;
-                    requestResponse.responsMessage = httpResponse.StatusDescription;
-                    requestResponse.body = responseString;
-                    requestResponse.uri = requestSettings.uri;
-                }
-                catch (Exception e)
-                {
-                    requestResponse = new RequestResponse();
-                    requestResponse.method = requestSettings.method;
-                    requestResponse.requestHeaders = requestSettings.requestHeaders;
-                    requestResponse.responsMessage = e.Message;
-                    requestResponse.uri = requestSettings.uri;
-                    Log(Severity.Error, "Exception: " + e.Message);
-
-                }
-            }
-            else
-            {
-                requestResponse = new RequestResponse();
-                requestResponse.method = requestSettings.method;
-                requestResponse.requestHeaders = requestSettings.requestHeaders;
-                requestResponse.responsMessage = "FAIL request type unknown";
-                requestResponse.uri = requestSettings.uri;
-                Log(Severity.Error,"request type unknown!");
-            }
-        }
-        */
-        #endregion IWebServiceRequest
-        /*
-        #region ISerializer
-
-        public bool Supports(SerializingFormat format)
-        {
-            switch (format)
-            {
-                //case SerializingFormat.Binary:
-                //    return false;
-                case SerializingFormat.Xml:
-                    return false;
-                case SerializingFormat.Json:
-                    return true;
-            }
-
-            return false;
-        }
-
-        public object Deserialize<T>(string text, SerializingFormat format)
-        {
-            return JsonConvert.DeserializeObject(text, typeof(T));
-        }
-
-        public string Serialize(object obj, SerializingFormat format)
-        {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented);
-        }
-
-        #endregion ISerializer
-        */
-        /*
-        #region IVirtualProperties Members
-
-        /// <summary>
-        /// Looks up a given key to find its associated value.
-        /// </summary>
-        ///
-        /// <param name="model"> The model. </param>
-        /// <param name="key">   The key. </param>
-        ///
-        /// <returns>
-        /// An Object.
-        /// </returns>
-        public object LookupValue(string model, string key)
-        {
-            if (key.Equals("Virtual"))
-            {
-                return DateTime.Now;
-            }
-
-            return null;
-        }
-
-        #endregion IVirtualProperties Members
-        */
         #region IWebServiceRequest Members
 
         // See http://stackoverflow.com/questions/12224602/a-method-for-making-http-requests-on-unity-ios
@@ -548,6 +485,78 @@ namespace TestEvaluationAsset
         }
 
         #endregion IWebServiceRequest Members
+
+        //#region IWebServiceRequestAsync
+
+        //public void WebServiceRequest(string method, Uri uri, Dictionary<string, string> headers, string body, IWebServiceResponse response)
+        //{
+        //    string url = uri.AbsoluteUri;
+
+        //    if (string.Equals(method, "get", StringComparison.CurrentCultureIgnoreCase))
+        //    {
+        //        try
+        //        {
+        //            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+        //            HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse();
+        //            Stream resStream = webResponse.GetResponseStream();
+
+        //            Dictionary<string, string> responseHeader = new Dictionary<string, string>();
+        //            foreach (string key in webResponse.Headers.AllKeys)
+        //                responseHeader.Add(key, webResponse.Headers[key]);
+
+        //            StreamReader reader = new StreamReader(resStream);
+        //            string dm = reader.ReadToEnd();
+
+        //            response.Success(url, (int)webResponse.StatusCode, responseHeader, dm);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            response.Error(url, e.Message);
+        //        }
+        //    }
+        //    else if(string.Equals(method, "post", StringComparison.CurrentCultureIgnoreCase))
+        //    { //http://stackoverflow.com/questions/4015324/http-request-with-post
+        //        try
+        //        {
+        //            var request = (HttpWebRequest)WebRequest.Create(uri);
+        //            var data = Encoding.ASCII.GetBytes(body);
+
+        //            request.Method = "POST";
+        //            request.ContentType = "text/plain";
+        //            request.ContentLength = data.Length;
+
+        //            using (var stream = request.GetRequestStream())
+        //            {
+        //                stream.Write(data, 0, data.Length);
+        //            }
+
+        //            var responsePost = (HttpWebResponse)request.GetResponse();
+
+        //            var responseString = new StreamReader(responsePost.GetResponseStream()).ReadToEnd();
+
+        //            Dictionary<string, string> responseHeader = new Dictionary<string, string>();
+        //            foreach (string key in responsePost.Headers.AllKeys)
+        //                responseHeader.Add(key, responsePost.Headers[key]);
+
+        //            response.Success(url, (int)responsePost.StatusCode, responseHeader, responseString);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            response.Error(url, e.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        response.Error(url, "Requested method " + method + " not implemented!");
+        //    }
+        //}
+
+        //public void WebServiceRequest(RequestSetttings requestSettings, out RequestResponse requestResponse)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //#endregion IWebServiceRequestAsync
     }
 
 }

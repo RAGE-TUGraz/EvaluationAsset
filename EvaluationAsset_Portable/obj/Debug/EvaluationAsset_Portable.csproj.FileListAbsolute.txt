@@ -1,0 +1,8 @@
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.csprojResolveAssemblyReference.cache
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\EvaluationAsset_Portable.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\EvaluationAsset_Portable.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\RageAssetManager.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\RageAssetManager.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\RageAssetManager.xml
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.pdb

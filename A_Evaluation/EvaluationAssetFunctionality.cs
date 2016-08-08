@@ -147,12 +147,13 @@ namespace EvaluationAssetNameSpace
         }
 
         /// <summary>
-        /// Method for performing POSR request for sending evaluation data.
+        /// Method for performing POST request for sending evaluation data.
         /// </summary>
         /// <param name="body"> data to be send to the evaluation service. </param>
         internal void postData(String body)
         {
-
+            //my code
+            /*
             IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
             if (iwr != null)
             {
@@ -166,6 +167,41 @@ namespace EvaluationAssetNameSpace
                 rs.requestHeaders = headers;
                 rs.body = body;
                 iwr.WebServiceRequest(rs, out rr);
+            }
+            else
+            {
+                loggingEA("IWebServiceRequest bridge absent for performing POST request for sending evaluation data.", Severity.Error);
+                throw new Exception("EXCEPTION: IWebServiceRequest bridge absent for performing POST request for sending evaluation data.");
+            }
+            */
+            //wims code
+
+            IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
+            if (iwr != null)
+            {
+                loggingEA("performing POST request with evaluation data.");
+                Uri uri = new Uri(getEA().getEASettings().PostUrl);
+                Dictionary<string, string> headers = new Dictionary<string, string>();
+                //headers.Add("user", playerId);
+
+                RequestResponse response = getEA().IssueRequest("POST", uri, headers, body);
+                
+
+                if (response.ResultAllowed)
+                {
+                    loggingEA("WebClient request successful!");
+                }
+                else
+                {
+                    loggingEA("Web Request for sending evaluation data to " +
+                        response.uri.ToString() + " failed! " + response.responsMessage, Severity.Error);
+
+                    throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + response.uri.ToString() + " failed! " + response.responsMessage);
+                }
+                //! Process returned response instead of the next two statements.
+
+                //WebServiceResponse wsr = new WebServiceResponse();
+                //iwr.WebServiceRequest("post", uri, headers, body, wsr);
             }
             else
             {

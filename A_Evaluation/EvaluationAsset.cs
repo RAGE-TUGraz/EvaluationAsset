@@ -120,6 +120,89 @@ namespace EvaluationAssetNameSpace
             return this.settings;
         }
 
+        /// <summary>
+        /// Query if this object issue request 2.
+        /// </summary>
+        ///
+        /// <param name="method">   The method. </param>
+        /// <param name="uri">      URI of the document. </param>
+        /// <param name="headers">  The headers. </param>
+        /// <param name="body">     (Optional) The body. </param>
+        ///
+        /// <returns>
+        /// A RequestResponse.
+        /// </returns>
+        internal RequestResponse IssueRequest(string method, Uri uri, Dictionary<string, string> headers, string body = "")
+        {
+            IWebServiceRequest ds = getInterface<IWebServiceRequest>();
+
+            RequestResponse response = new RequestResponse();
+
+            if (ds != null)
+            {
+                ds.WebServiceRequest(
+                   new RequestSetttings
+                   {
+                       method = method,
+                       uri = uri,
+                       requestHeaders = headers,
+                       //! allowedResponsCodes,     // TODO default is ok
+                       body = body,
+                   }, out response);
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Query if this object issue request 2.
+        /// </summary>
+        ///
+        /// <param name="host">     The host. </param>
+        /// <param name="path">     Full pathname of the file. </param>
+        /// <param name="headers">  The headers. </param>
+        /// <param name="method">   (Optional) The method. </param>
+        /// <param name="body">     (Optional) The body. </param>
+        /// <param name="secure">   (Optional) true to secure. </param>
+        /// <param name="port">     (Optional) The port. </param>
+        ///
+        /// <returns>
+        /// true if it succeeds, false if it fails.
+        /// </returns>
+        internal RequestResponse IssueRequest(
+            string host,
+            string path,
+            Dictionary<string, string> headers,
+            string method = "GET",
+            string body = "",
+            Boolean secure = false,
+            Int32 port = 80)
+        {
+            IWebServiceRequest ds = getInterface<IWebServiceRequest>();
+
+            RequestResponse response = new RequestResponse();
+
+            if (ds != null)
+            {
+                ds.WebServiceRequest(
+                   new RequestSetttings
+                   {
+                       method = method,
+                       uri = new Uri(string.Format("http{0}://{1}{2}/{3}",
+                                   secure ? "s" : String.Empty,
+                                   host,
+                                   port == 80 ? String.Empty : String.Format(":{0}", port),
+                                   path.TrimStart('/')
+                                   )),
+                       requestHeaders = headers,
+                       //! allowedResponsCodes,     // TODO default is ok
+                       body = body, // or method.Equals("GET")?string.Empty:body
+                   }, out response);
+            }
+
+            return response;
+        }
+
         #endregion Methods
     }
 }

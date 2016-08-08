@@ -1,0 +1,10 @@
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\UnitTestEvaluation.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\UnitTestEvaluation.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\EvaluationAsset.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\RageAssetManager.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\EvaluationAsset.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\bin\Debug\RageAssetManager.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.csprojResolveAssemblyReference.cache
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.pdb
