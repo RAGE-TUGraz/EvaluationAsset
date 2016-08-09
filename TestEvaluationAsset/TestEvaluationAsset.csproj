@@ -55,6 +55,10 @@
       <Project>{4d1f98c7-6827-4f99-b676-f5c9af632609}</Project>
       <Name>EvaluationAsset</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnitTestEvaluation\UnitTestEvaluation.csproj">
+      <Project>{fc0d2cdc-1457-4f6c-830a-95c11e8bfab7}</Project>
+      <Name>UnitTestEvaluation</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

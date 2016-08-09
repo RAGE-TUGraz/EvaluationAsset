@@ -10,3 +10,6 @@ C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluati
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\Newtonsoft.Json.xml
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\EvaluationAsset.dll
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\EvaluationAsset.pdb
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\UnitTestEvaluation.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\TestEvaluationAsset\bin\Debug\UnitTestEvaluation.pdb
