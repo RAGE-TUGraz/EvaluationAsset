@@ -26,13 +26,8 @@
   Created by: Matthias Maurer, TUGraz <mmaurer@tugraz.at>
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using AssetPackage;
-using System.Net;
 using EvaluationAssetNameSpace;
 using AssetManagerPackage;
 
