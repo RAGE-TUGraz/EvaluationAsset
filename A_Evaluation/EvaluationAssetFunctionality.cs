@@ -47,7 +47,7 @@ namespace EvaluationAssetNameSpace
         /// <summary>
         /// Instance of the class EvaluationAssetHandler - Singelton pattern
         /// </summary>
-        private static EvaluationAssetHandler instance;
+        static readonly EvaluationAssetHandler instance = new EvaluationAssetHandler();
 
         #endregion Fields
         #region Constructors
@@ -67,10 +67,6 @@ namespace EvaluationAssetNameSpace
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new EvaluationAssetHandler();
-                }
                 return instance;
             }
         }
