@@ -49,8 +49,8 @@ namespace UnitTestEvaluation
         /// <param name="msg"> Message to be logged </param>
         public void log(String msg, Severity severity = Severity.Information)
         {
-            ILog logger = (ILog)AssetManager.Instance.Bridge;
-            logger.Log(severity, "[EA Test]" + msg);
+#warning the ILog interface is expected on the AssetManager
+            AssetManager.Instance.Log(severity, "[EA Test]: {0}", msg);
         }
 
         /// <summary>
