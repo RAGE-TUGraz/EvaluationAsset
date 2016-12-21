@@ -50,9 +50,9 @@ namespace EvaluationAssetNameSpace
         #endregion Fields
         #region Constructors
 
-            /// <summary>
-            /// private EvaluationAssetHandler-ctor for Singelton-pattern 
-            /// </summary>
+        /// <summary>
+        /// private EvaluationAssetHandler-ctor for Singelton-pattern 
+        /// </summary>
         private EvaluationAssetHandler() { }
 
         #endregion Constructors
@@ -146,30 +146,6 @@ namespace EvaluationAssetNameSpace
         /// <param name="body"> data to be send to the evaluation service. </param>
         internal void postData(String body)
         {
-            //my code
-            /*
-            IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
-            if (iwr != null)
-            {
-                loggingEA("performing POST request with evaluation data.");
-                Uri uri = new Uri(getEA().getEASettings().PostUrl);
-                Dictionary<string, string> headers = new Dictionary<string, string>();
-                RequestResponse rr = new RequestResponse();
-                RequestSetttings rs = new RequestSetttings();
-                rs.method = "POST";
-                rs.uri = uri;
-                rs.requestHeaders = headers;
-                rs.body = body;
-                iwr.WebServiceRequest(rs, out rr);
-            }
-            else
-            {
-                loggingEA("IWebServiceRequest bridge absent for performing POST request for sending evaluation data.", Severity.Error);
-                throw new Exception("EXCEPTION: IWebServiceRequest bridge absent for performing POST request for sending evaluation data.");
-            }
-            */
-            //wims code
-
             IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
             if (iwr != null)
             {
@@ -192,10 +168,6 @@ namespace EvaluationAssetNameSpace
 
                     throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + response.uri.ToString() + " failed! " + response.responsMessage);
                 }
-                //! Process returned response instead of the next two statements.
-
-                //WebServiceResponse wsr = new WebServiceResponse();
-                //iwr.WebServiceRequest("post", uri, headers, body, wsr);
             }
             else
             {
@@ -223,33 +195,19 @@ namespace EvaluationAssetNameSpace
             switch (gameEvent)
             {
                 case "gameusage":
-                    if (keys.Count == 1 && keys.Contains("event"))
-                        return (true);
-                    break;
+                    return (keys.Count == 1 && keys.Contains("event"));
                 case "userprofile":
-                    if (keys.Count == 1 && keys.Contains("event"))
-                        return (true);
-                    break;
+                    return (keys.Count == 1 && keys.Contains("event"));
                 case "gameactivity":
-                    if (keys.Count == 3 && keys.Contains("event") && keys.Contains("goalorientation") && keys.Contains("tool"))
-                        return (true);
-                    break;
+                    return (keys.Count == 3 && keys.Contains("event") && keys.Contains("goalorientation") && keys.Contains("tool"));
                 case "gamification":
-                    if (keys.Count == 1 && keys.Contains("event"))
-                        return (true);
-                    break;
+                    return (keys.Count == 1 && keys.Contains("event"));
                 case "gameflow":
-                    if (keys.Count == 3 && keys.Contains("type") && keys.Contains("id") && keys.Contains("completed"))
-                        return (true);
-                    break;
+                    return (keys.Count == 3 && keys.Contains("type") && keys.Contains("id") && keys.Contains("completed"));
                 case "support":
-                    if (keys.Count == 1 && keys.Contains("event"))
-                        return (true);
-                    break;
+                    return (keys.Count == 1 && keys.Contains("event"));
                 case "assetactivity":
-                    if (keys.Count == 2 && keys.Contains("asset") && keys.Contains("done"))
-                        return (true);
-                    break;
+                    return (keys.Count == 2 && keys.Contains("asset") && keys.Contains("done"));
             }
 
             return (false);
@@ -267,73 +225,8 @@ namespace EvaluationAssetNameSpace
         {
             getEA().Log(severity, "[EA]: " + msg);
         }
-
-        /*
-        /// <summary>
-        /// Method calling all Tests of this Class.
-        /// </summary>
-        internal void performAllTests()
-        {
-            loggingEA("****************************************************************");
-            loggingEA("Calling all tests (Evaluation Asset):");
-            performTest1();
-            loggingEA("Tests Evaluation Asset - done!");
-            loggingEA("****************************************************************");
-        }
-
-        /// <summary>
-        /// Test number one - sendig data to the asset
-        /// </summary>
-        internal void performTest1()
-        {
-            loggingEA("Calling test 1 - Evaluation Asset");
-
-            EvaluationAssetSettings  eas = new EvaluationAssetSettings();
-            eas.GameId = "watercooler";
-            eas.GameVersion = "2";
-            eas.PlayerId = "player123";
-
-            this.getEA().Settings = eas;
-
-            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat)");
-            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
-            loggingEA("Tests Evaluation Asset - test 1 - done!");
-        }
-        */
-
+        
         #endregion Testmethods
     }
-
-    /*
-    /// <summary>
-    /// Implementation of the WebServiceResponse-Interface for handling web requests.
-    /// </summary>
-    public class WebServiceResponse : IWebServiceResponse
-    {
-        /// <summary>
-        /// Describes behaviour in case the web request failed.
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="msg"></param>
-        public void Error(string url, string msg)
-        {
-            EvaluationAssetHandler.Instance.loggingEA("Web Request for sending evaluation data to " + url + " failed! " + msg, Severity.Error);
-            throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + url + " failed! " + msg);
-        }
-
-        /// <summary>
-        /// Describes behaviour in case the web requests succeeds
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="code"></param>
-        /// <param name="headers"></param>
-        /// <param name="body"></param>
-        public void Success(string url, int code, Dictionary<string, string> headers, string body)
-        {
-            EvaluationAssetHandler.Instance.loggingEA("WebClient request successful!");
-            //EvaluationAssetHandler.Instance.loggingEA(DomainModelHandler.Instance.getDMFromXmlString(body));
-        }
-    }
-
-    */
+    
 }
