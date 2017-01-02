@@ -36,7 +36,7 @@ namespace UnitTestEvaluation
 {
     public class Bridge : IBridge, /*IVirtualProperties,*/ ILog, IDataStorage, IWebServiceRequest/*, ISerializer*/
     {
-        string IDataStoragePath = @"C:\Users\mmaurer\Desktop\rageCsFiles\";
+        string IDataStoragePath = "./";
 
         #region IDataStorage
 
