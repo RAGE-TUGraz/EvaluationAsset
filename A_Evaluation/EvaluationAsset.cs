@@ -45,7 +45,6 @@ namespace EvaluationAssetNameSpace
         private EvaluationAssetSettings settings = null;
 
         #endregion Fields
-
         #region Constructors
 
         /// <summary>
@@ -64,10 +63,11 @@ namespace EvaluationAssetNameSpace
                 this.Log(Severity.Error, "There is only one instance of the EvaluationAsset permitted!");
                 throw new Exception("EXCEPTION: There is only one instance of the EvaluationAsset permitted!");
             }
+
+            EvaluationAssetHandler.Instance.evaluationAsset = this;
         }
 
         #endregion Constructors
-
         #region Properties
 
         /// <summary>
@@ -96,7 +96,6 @@ namespace EvaluationAssetNameSpace
         }
 
         #endregion Properties
-
         #region Methods
 
         /// <summary>

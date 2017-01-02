@@ -78,8 +78,6 @@ namespace EvaluationAssetNameSpace
         /// <returns> Instance of the EvaluationAssetHandler </returns>
         internal EvaluationAsset getEA()
         {
-            if (evaluationAsset == null)
-                evaluationAsset = (EvaluationAsset)AssetManager.Instance.findAssetByClass("EvaluationAsset");
             return (evaluationAsset);
         }
 
