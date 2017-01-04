@@ -44,27 +44,27 @@ namespace EvaluationAssetNameSpace
         /// </summary>
         private EvaluationAssetSettings settings = null;
 
+        /// <summary>
+        /// Instance of the class EvaluationAssetAsset - Singelton pattern
+        /// </summary>
+        static readonly EvaluationAsset instance = new EvaluationAsset();
+
+        /// <summary>
+        /// Instance of the class EvaluationAssetHandler
+        /// </summary>
+        static internal EvaluationAssetHandler evaluationAssetHandler = new EvaluationAssetHandler();
+
         #endregion Fields
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the A_Evaluation.Asset class.
         /// </summary>
-        public EvaluationAsset()
+        private EvaluationAsset()
             : base()
         {
             //! Create Settings and let it's BaseSettings class assign Defaultvalues where it can.
-            // 
             settings = new EvaluationAssetSettings();
-
-            //preventing multiple asset creation
-            if (AssetManager.Instance.findAssetsByClass(this.Class).Count > 1)
-            {
-                this.Log(Severity.Error, "There is only one instance of the EvaluationAsset permitted!");
-                throw new Exception("EXCEPTION: There is only one instance of the EvaluationAsset permitted!");
-            }
-
-            EvaluationAssetHandler.Instance.evaluationAsset = this;
         }
 
         #endregion Constructors
@@ -95,6 +95,29 @@ namespace EvaluationAssetNameSpace
             }
         }
 
+
+        /// <summary>
+        /// Getter for Instance of the EvaluationAsset - Singelton pattern
+        /// </summary>
+        public static EvaluationAsset Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        /// <summary>
+        /// Getter for Instance of the EvaluationAssetHandler 
+        /// </summary>
+        internal static EvaluationAssetHandler Handler
+        {
+            get
+            {
+                return evaluationAssetHandler;
+            }
+        }
+
         #endregion Properties
         #region Methods
 
@@ -105,7 +128,7 @@ namespace EvaluationAssetNameSpace
         /// <param name="parameter"> Event information </param>
         public void sensorData(String gameEvent, String parameter)
         {
-            EvaluationAssetHandler.Instance.sensorData(this.settings.GameId, this.settings.GameVersion, this.settings.PlayerId , gameEvent, parameter);
+            Handler.sensorData(this.settings.GameId, this.settings.GameVersion, this.settings.PlayerId , gameEvent, parameter);
         }
 
 

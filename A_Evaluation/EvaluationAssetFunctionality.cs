@@ -34,41 +34,17 @@ namespace EvaluationAssetNameSpace
 {
     internal class EvaluationAssetHandler
     {
-
         #region Fields
-
-        /// <summary>
-        /// Instance of the EvaluationAsset
-        /// </summary>
-        internal EvaluationAsset evaluationAsset = null;
-
-        /// <summary>
-        /// Instance of the class EvaluationAssetHandler - Singelton pattern
-        /// </summary>
-        static readonly EvaluationAssetHandler instance = new EvaluationAssetHandler();
-
         #endregion Fields
         #region Constructors
 
         /// <summary>
         /// private EvaluationAssetHandler-ctor for Singelton-pattern 
         /// </summary>
-        private EvaluationAssetHandler() { }
+        public EvaluationAssetHandler() { }
 
         #endregion Constructors
         #region Properties
-
-        /// <summary>
-        /// Getter for Instance of the EvaluationAssetHandler - Singelton pattern
-        /// </summary>
-        public static EvaluationAssetHandler Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
-
         #endregion Properties
         #region Methods
 
@@ -78,7 +54,7 @@ namespace EvaluationAssetNameSpace
         /// <returns> Instance of the EvaluationAssetHandler </returns>
         internal EvaluationAsset getEA()
         {
-            return (evaluationAsset);
+            return EvaluationAsset.Instance;
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ namespace UnitTestEvaluation
                 AssetManager.Instance.Bridge = new Bridge();
 
                 //creating the asset
-                EvaluationAsset cia = new EvaluationAsset();
+                EvaluationAsset cia = EvaluationAsset.Instance;
             }
 
         }

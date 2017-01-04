@@ -46,7 +46,7 @@ namespace TestEvaluationAsset
             am.Bridge = new Bridge();
             
 
-            EvaluationAsset ea = new EvaluationAsset();
+            EvaluationAsset ea = EvaluationAsset.Instance;
 
 
             TestEvaluationAsset tea = new TestEvaluationAsset();
