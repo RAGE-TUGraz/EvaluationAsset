@@ -29,9 +29,8 @@ namespace EvaluationAssetNameSpace
 {
     using System;
     using System.Collections.Generic;
-
-    using AssetManagerPackage;
     using AssetPackage;
+
     /// <summary>
     /// An asset.
     /// </summary>

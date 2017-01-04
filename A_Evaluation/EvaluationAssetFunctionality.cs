@@ -25,7 +25,7 @@
 
   Created by: Matthias Maurer, TUGraz <mmaurer@tugraz.at>
 */
-using AssetManagerPackage;
+
 using AssetPackage;
 using System;
 using System.Collections.Generic;
@@ -120,7 +120,7 @@ namespace EvaluationAssetNameSpace
         /// <param name="body"> data to be send to the evaluation service. </param>
         internal void postData(String body)
         {
-            IWebServiceRequest iwr = (IWebServiceRequest)AssetManager.Instance.Bridge;
+            IWebServiceRequest iwr =  EvaluationAsset.Instance.getInterfaceFromAsset<IWebServiceRequest>();
             if (iwr != null)
             {
                 loggingEA("performing POST request with evaluation data.");
