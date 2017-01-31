@@ -92,17 +92,17 @@ namespace EvaluationAssetNameSpace
         /// <returns> A XML string representation of the data </returns>
         internal String buildXMLString(String gameId, String gameversion, String playerId, String gameEvent, String parameter)
         {
-            String xml = "<sensordata>";
+            String xml = "<sensoritem>";
 
             String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
-            xml += "<context project = \"rage\" application = \""+gameId+ "\" version=\""+gameversion+"\" date = \""+dateTime+"\"/>";
-            xml += "<user id = \""+playerId+"\" group = \"\" ref= \"\"/>";
+            xml += "<context project = \"rage\" appid = \""+gameId+ "\" appversion=\""+gameversion+"\" date = \""+dateTime+"\" applang=\"en\"/>";
+            xml += "<actor id = \""+playerId+"\" group = \"\" ref= \"\"/>";
             xml += "<predicate tag = \""+gameEvent+"\"/>";
 
             String[] parameterPairs = parameter.Split('&');
 
-            xml += "<parameter ";
+            xml += "<valuedata ";
             foreach(String parameterPair in parameterPairs)
             {
                 String[] currentParameterPair = parameterPair.Split('=');
@@ -110,7 +110,7 @@ namespace EvaluationAssetNameSpace
             }
             xml += "/>";
 
-            xml += "</sensordata>";
+            xml += "</sensoritem>";
             return (xml);
         }
 
