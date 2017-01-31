@@ -96,7 +96,7 @@ namespace EvaluationAssetNameSpace
 
             String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
-            xml += "<context project = \"rage\" appid = \""+gameId+ "\" appversion=\""+gameversion+"\" date = \""+dateTime+"\" applang=\"en\"/>";
+            xml += "<context project = \"rage\" gameid = \""+gameId+ "\" gameversion=\""+gameversion+"\" date = \""+dateTime+"\" applang=\"en\"/>";
             xml += "<actor id = \""+playerId+"\" group = \"\" ref= \"\"/>";
             xml += "<predicate tag = \""+gameEvent+"\"/>";
 
