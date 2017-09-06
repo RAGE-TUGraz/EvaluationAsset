@@ -6,3 +6,10 @@ C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\bin\Debug\EvaluationAsset.pdb
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\obj\Debug\EvaluationAsset.dll
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\A_Evaluation\obj\Debug\EvaluationAsset.pdb
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\obj\Debug\EvaluationAsset.csprojResolveAssemblyReference.cache
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\obj\Debug\EvaluationAsset.dll
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\obj\Debug\EvaluationAsset.pdb
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\bin\Debug\EvaluationAsset.dll
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\bin\Debug\EvaluationAsset.pdb
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\bin\Debug\RageAssetManager.pdb
+C:\Users\mojaW\git\EvaluationAsset\A_Evaluation\bin\Debug\RageAssetManager.xml

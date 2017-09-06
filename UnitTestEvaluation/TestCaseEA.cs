@@ -89,7 +89,7 @@ namespace UnitTestEvaluation
             log("Calling test 1 - Evaluation Asset");
 
             EvaluationAssetSettings eas = new EvaluationAssetSettings();
-            eas.GameId = "watercooler";
+            eas.GameId = "dummygame-clientasset unit test";
             eas.GameVersion = "2";
             eas.PlayerId = "player123";
 

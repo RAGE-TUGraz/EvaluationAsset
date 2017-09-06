@@ -6,3 +6,6 @@ C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAs
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\bin\Debug\RageAssetManager.xml
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.dll
 C:\Users\mmaurer\Documents\Visual Studio 2015\Projects\A_Evaluation\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.pdb
+C:\Users\mojaW\git\EvaluationAsset\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.csprojResolveAssemblyReference.cache
+C:\Users\mojaW\git\EvaluationAsset\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.dll
+C:\Users\mojaW\git\EvaluationAsset\EvaluationAsset_Portable\obj\Debug\EvaluationAsset_Portable.pdb

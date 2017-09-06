@@ -47,10 +47,11 @@ namespace EvaluationAssetNameSpace
             : base()
         {
             // Set Default values here.
-            PostUrl = "http://css-kti.tugraz.at:8080/equalia/rest/submitsensorrawdata";
-            GameId = "default game id";
+            PostUrl = "http://css-kti.tugraz.at/evaluationasset/rest/sensordatapost";
+            GameId = "dummygame-clientasset";
             GameVersion = "default Version";
             PlayerId = "default player id";
+            Language = "en";
         }
 
         #endregion Constructors
@@ -108,6 +109,20 @@ namespace EvaluationAssetNameSpace
         /// </value>
         [XmlElement()]
         public String PlayerId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the language for the xml creation.
+        /// </summary>
+        ///
+        /// <value>
+        /// The Language for the xml creation.
+        /// </value>
+        [XmlElement()]
+        public String Language
         {
             get;
             set;

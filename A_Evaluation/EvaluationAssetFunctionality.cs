@@ -65,7 +65,7 @@ namespace EvaluationAssetNameSpace
         /// <param name="gameEvent"> Type of event </param>
         /// <param name="parameter"> Event information </param>
         /// <param name="gameversion"> version of the game </param>
-        internal void sensorData(String gameId, String gameversion, String playerId, String gameEvent, String parameter)
+        internal void sensorData(String gameId, String gameversion, String playerId, String gameEvent, String parameter, String language)
         {
             if (!isReceivedDataValid(gameId, playerId, gameEvent, parameter))
             {
@@ -75,7 +75,7 @@ namespace EvaluationAssetNameSpace
             else
                 loggingEA("Reiceveid sensor data ("+gameId+"/"+playerId+"/"+gameEvent+"/"+parameter+").");
 
-            String xmlString = buildXMLString(gameId, gameversion, playerId, gameEvent, parameter);
+            String xmlString = buildXMLString(gameId, gameversion, playerId, gameEvent, parameter, language);
             loggingEA("Created xml string: \"" +xmlString+"\"." );
 
             postData(xmlString);
@@ -90,19 +90,17 @@ namespace EvaluationAssetNameSpace
         /// <param name="parameter"> Event information </param>
         /// <param name="gameversion"> version of the game </param>
         /// <returns> A XML string representation of the data </returns>
-        internal String buildXMLString(String gameId, String gameversion, String playerId, String gameEvent, String parameter)
+        internal String buildXMLString(String gameId, String gameversion, String playerId, String gameEvent, String parameter, String language)
         {
             String xml = "<sensordata>";
 
-            String dateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-
-            xml += "<context project = \"rage\" application = \""+gameId+ "\" version=\""+gameversion+"\" date = \""+dateTime+"\"/>";
-            xml += "<user id = \""+playerId+"\" group = \"\" ref= \"\"/>";
+            xml += "<context project = \"rage\" appid = \""+gameId+ "\" appversion=\""+gameversion+"\" applang = \""+ language + "\"/>";
+            xml += "<actor id = \""+playerId+"\" group = \"\" ref= \"\"/>";
             xml += "<predicate tag = \""+gameEvent+"\"/>";
 
             String[] parameterPairs = parameter.Split('&');
 
-            xml += "<parameter ";
+            xml += "<valuedata ";
             foreach(String parameterPair in parameterPairs)
             {
                 String[] currentParameterPair = parameterPair.Split('=');

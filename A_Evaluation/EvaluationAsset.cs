@@ -127,7 +127,7 @@ namespace EvaluationAssetNameSpace
         /// <param name="parameter"> Event information </param>
         public void sensorData(String gameEvent, String parameter)
         {
-            Handler.sensorData(this.settings.GameId, this.settings.GameVersion, this.settings.PlayerId , gameEvent, parameter);
+            Handler.sensorData(this.settings.GameId, this.settings.GameVersion, this.settings.PlayerId , gameEvent, parameter, this.settings.Language);
         }
 
 
