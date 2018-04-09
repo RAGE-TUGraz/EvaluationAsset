@@ -18,8 +18,6 @@ C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\UnitTestEvaluat
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\EvaluationAsset.pdb
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\UnitTestEvaluation.pdb
-C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\RageAssetManager.pdb
-C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\bin\Debug\RageAssetManager.xml
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.csprojResolveAssemblyReference.cache
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.exe
 C:\Users\mojaW\git\EvaluationAsset\TestEvaluationAsset\obj\Debug\TestEvaluationAsset.pdb

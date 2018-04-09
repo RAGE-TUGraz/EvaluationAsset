@@ -105,14 +105,14 @@ namespace TestEvaluationAsset
             log("Calling test 1 - Evaluation Asset");
 
             EvaluationAssetSettings eas = new EvaluationAssetSettings();
-            eas.GameId = "watercooler";
-            eas.GameVersion = "2";
-            eas.PlayerId = "player123";
+            eas.GameId = "dummygame-clientasset";
+            eas.GameVersion = "default Version";
+            eas.PlayerId = "default player id";
+            eas.Language = "en";
 
             this.getEA().Settings = eas;
 
-            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat)");
-            getEA().sensorData("gameactivity", "event=messagetoplayer&tool=chat&goalorientation=neutral");
+            getEA().sensorData("gameactivity", "event=dummyevent&goalorientation=progression&tool=dummytool");
             log("Tests Evaluation Asset - test 1 - done!");
         }
         

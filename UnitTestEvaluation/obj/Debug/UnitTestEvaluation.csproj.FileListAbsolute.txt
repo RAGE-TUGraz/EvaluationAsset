@@ -13,7 +13,6 @@ C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\bin\Debug\UnitTestEvaluati
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\bin\Debug\EvaluationAsset.dll
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\bin\Debug\EvaluationAsset.pdb
-C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\bin\Debug\RageAssetManager.pdb
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.csprojResolveAssemblyReference.cache
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.dll
 C:\Users\mojaW\git\EvaluationAsset\UnitTestEvaluation\obj\Debug\UnitTestEvaluation.pdb
