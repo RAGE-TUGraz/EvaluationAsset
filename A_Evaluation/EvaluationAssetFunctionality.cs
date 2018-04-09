@@ -138,13 +138,13 @@ namespace EvaluationAssetNameSpace
                     loggingEA("Web Request for sending evaluation data to " +
                         response.uri.ToString() + " failed! " + response.responsMessage, Severity.Error);
 
-                    throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + response.uri.ToString() + " failed! " + response.responsMessage);
+                    //throw new Exception("EXCEPTION: Web Request for sending evaluation data to " + response.uri.ToString() + " failed! " + response.responsMessage);
                 }
             }
             else
             {
                 loggingEA("IWebServiceRequest bridge absent for performing POST request for sending evaluation data.", Severity.Error);
-                throw new Exception("EXCEPTION: IWebServiceRequest bridge absent for performing POST request for sending evaluation data.");
+                //throw new Exception("EXCEPTION: IWebServiceRequest bridge absent for performing POST request for sending evaluation data.");
             }
         }
 
